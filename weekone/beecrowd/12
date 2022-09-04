@@ -1,0 +1,14 @@
+a = float(input())
+b = float(input())
+c = float(input())
+t= .5*(a*c)
+c=  3.14159*c*c
+#t1=(.5*(a+b)*c)
+tr= 0.5*(a+b)*c
+s= b*b
+r=a*b
+print("TRIANGULO: %.3f"% t)
+print("CIRCULO: %.3f"% c)
+print("TRAPEZIO: %.3f"% tr)
+print("QUADRADO: %.3f"% s)
+print("RETANGULO: %.3f"% r)
