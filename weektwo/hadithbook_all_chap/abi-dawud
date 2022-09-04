@@ -32,7 +32,7 @@ def hadith_book_scrapping(book_name,url, total_chapter):
         f.write(f"{n},{a}, {b}, {na}, {hs}")
         f.write('\n')
 book_name = "abi-dawud"
-book_url = "http://ihadis.com/books/{book_name}"
+book_url = "http://ihadis.com/books/abi-dawud"
 total_chapter = 43
 start = time.time()
 hadith_book_scrapping(book_name,book_url,total_chapter)
