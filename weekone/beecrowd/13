@@ -1,0 +1,6 @@
+a = int(input())
+b = int(input())
+c = int(input())
+d = (a+b+abs(a-b))/2;
+e = (c+d+abs(c-d))/2;
+print(int(e),"eh o maior")
