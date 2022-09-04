@@ -1,0 +1,6 @@
+n = str(input())
+s = float(input())
+sold = float(input())
+
+x = s+(sold*.15)
+print("TOTAL = R$ %.2f"% x)
