@@ -1,0 +1,41 @@
+!pip install requests-html
+from requests_html import HTMLSession
+session = HTMLSession()
+import time
+time.time()
+def hadith_book_scrapping(book_name,url, total_chapter):
+
+  #url = "http://ihadis.com/books/bookname"
+
+  for i in range(1,total_chapter+1):
+    chapter_url = url + "/chapter/" + str(i)
+    print(chapter_url)
+    #url = "http://ihadis.com/books/bookname/chappter/1"
+
+    r = session.get(chapter_url)
+    no_pattern = "h3.hidden-print"
+    arabic_text_pattern = "p.hadith-des2"
+    bangla_text = ".hadith-des"
+    narrator_pattern = ".narrated-by"
+    hadith_status_pattern = ".label.validity"
+
+    numbers = [i.text for i in r.html.find(no_pattern)]
+    arabic_text = [i.text for i in r.html.find(arabic_text_pattern)]
+    bangla_text = [i.text for i in r.html.find(bangla_text)]
+    narrator = [i.text for i in r.html.find(narrator_pattern)]
+    hadith_status = [i.text for i in r.html.find(hadith_status_pattern)]
+    print("Chapter: ",i,len(numbers),len(arabic_text),len(bangla_text),len(narrator),len(hadith_status))
+
+    with open(f"{book_name}/{book_name}_chapter_{i}.txt", "w") as f:
+      f.write("No., Arabic Text, Bangla Text,Narrator,Hadith Status")
+      for n, a, b, na, hs in zip(numbers, arabic_text, bangla_text, narrator, hadith_status):
+        f.write(f"{n},{a}, {b}, {na}, {hs}")
+        f.write('\n')
+
+book_name = "juj-ul-rafaul-yadain"
+book_url = "http://ihadis.com/books/juj-ul-rafaul-yadain"
+total_chapter = 1
+start = time.time()
+hadith_book_scrapping(book_name,book_url,total_chapter)
+end = time.time()
+print(end-start)
