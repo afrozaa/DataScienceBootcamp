@@ -1,0 +1,24 @@
+!pip install requests-html
+from requests_html import HTMLSession
+session = HTMLSession()
+def textfilegenerator(year):
+    r = session.get(url)
+    dse_news = r.html.find(".table-news")[0].text
+    dse_news_list = dse_news.split("\n")
+    trading_code = dse_news_list[1::8]
+    news_title = dse_news_list[3::8]
+    news = dse_news_list[5::8]
+    post_date = dse_news_list[7::8]
+    print(len(trading_code),len(news_title),len(news),len(post_date))
+    with open(f"{year} dse_news.txt","w") as f:
+        f.write("No, Trading Code,news Title,News,Post Date\n")
+        for i, t, nt, n, p in zip(range(1, len(trading_code)+1), trading_code, news_title, news, post_date):
+            f.write(f"{i}, {t}, {nt}, {n}, {p}")
+            f.write('\n')
+
+    return trading_code, news_title, news, post_date
+
+
+url = "https://www.dsebd.org/old_news.php?startDate=2021-01-01&endDate=2021-12-31&criteria=4&archive=news"
+year = "2021"
+textfilegenerator(year)
